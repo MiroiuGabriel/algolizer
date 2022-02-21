@@ -11,6 +11,8 @@ const Bar = styled.div<
 	} & ChartOptions
 >`
 	position: absolute;
+	display: flex;
+	justify-content: center;
 	width: ${props => props.maxWidth / props.count}px;
 	bottom: 0;
 	transform: translateX(
@@ -19,7 +21,7 @@ const Bar = styled.div<
 	height: ${props => (props.maxHeight * props.value) / props.max}px;
 	background-color: ${props =>
 		props.highlight ? 'rgb(0, 128, 0)' : 'rgb(173, 216, 230);'};
-	transition: transform ${props => props.timer}ms;
+	transition: transform ${props => props.timer}ms, background 200ms;
 	z-index: ${props => (props.highlight ? 1 : 0)};
 
 	:after {

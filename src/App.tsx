@@ -2,7 +2,12 @@ import { Global } from '@emotion/react';
 import globalStyles from './globalStyles';
 import useAlgorithm from './hooks/useAlgorithm';
 import Barchart from './components/Barchart';
-import { bubbleSort } from './algorithms';
+import {
+	bubbleSort,
+	insertionSort,
+	quickSort,
+	selectionSort,
+} from './algorithms';
 import { useState } from 'react';
 
 const initialValues = [
@@ -12,14 +17,14 @@ const initialValues = [
 
 function App() {
 	const [options, setOptions] = useState<AlgorithmOptions>({
-		delay: { noop: 300, swap: 1000 },
+		delay: { noop: 100, swap: 100 },
 		max: 50,
 		min: 1,
 	});
 
 	const { data, highlight, run, randomize } = useAlgorithm(
 		initialValues,
-		bubbleSort,
+		quickSort,
 		options
 	);
 
