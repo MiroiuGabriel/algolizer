@@ -10,3 +10,24 @@ type AlgorithmOptions = {
 	min: number;
 	max: number;
 };
+
+type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'success';
+
+type ButtonProps = {
+	onClick?: () => void;
+	variant: ButtonVariant;
+	type: 'button' | 'submit' | 'reset' | undefined;
+};
+
+type ChartOptions = {
+	maxWidth: number;
+	maxHeight: number;
+	gap: number;
+};
+
+type BarchartProps = {
+	data: Array<{ value: number; index: number }>;
+	highlight: number[];
+	timer: number;
+	options?: ChartOptions;
+};

@@ -40,61 +40,6 @@ export const bubbleSort: SortAlgorithm = (values: number[]) => {
 	return steps;
 };
 
-const partition = (values: number[], left: number, right: number) => {
-	const steps: Step[] = [];
-
-	let pivot = values[Math.floor((right + left) / 2)], //middle element
-		i = left, //left pointer
-		j = right; //right pointer
-
-	while (i <= j) {
-		steps.push(noop(i, j));
-		while (values[i] < pivot) {
-			steps.push(noop(pivot, i));
-			i++;
-		}
-		while (values[j] > pivot) {
-			steps.push(noop(pivot, j));
-			j--;
-		}
-		if (i <= j) {
-			const step = swap(values, i, j); //sawpping two elements
-			steps.push(step);
-			steps.push(noop(i, j));
-			i++;
-			j--;
-		}
-	}
-
-	return { steps, index: i };
-};
-
-const quickSort2 = (values: number[], left: number, right: number) => {
-	const steps: Step[] = [];
-
-	if (values.length > 1) {
-		const { steps: partitionSteps, index } = partition(values, left, right); //index returned from partition
-		steps.push(...partitionSteps);
-
-		if (left < index - 1) {
-			//more elements on the left side of the pivot
-			const leftSteps = quickSort2(values, left, index - 1);
-			steps.push(...leftSteps);
-		}
-		if (index < right) {
-			//more elements on the right side of the pivot
-			const rightSteps = quickSort2(values, index, right);
-			steps.push(...rightSteps);
-		}
-	}
-
-	return steps;
-};
-
-export const quickSort: SortAlgorithm = (values: number[]) => {
-	return [...quickSort2(values, 0, values.length - 1), noop(-1, -1)];
-};
-
 export const insertionSort = (values: number[]) => {
 	const steps: Step[] = [];
 	//Start from the second element.

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 const delayed = async (cb: Function, delay: number) => {
 	await new Promise(resolve => {
@@ -12,24 +12,23 @@ const delayed = async (cb: Function, delay: number) => {
 const mapData = (values: number[]) =>
 	values.map((v, i) => ({ value: v, index: i }));
 
-const useAlgorithm = (
-	values: number[],
-	algorithm: SortAlgorithm,
-	options: AlgorithmOptions = {
-		delay: { noop: 100, swap: 300 },
-		min: 1,
-		max: 50,
-	}
-) => {
+const defaultOpts = {
+	delay: { noop: 100, swap: 300 },
+	min: 1,
+	max: 50,
+};
+
+const useAlgorithm = (values: number[], algorithm: SortAlgorithm) => {
 	const [data, setData] = useState(() => mapData(values));
 	const [highlight, setHighlight] = useState<number[]>([]);
+	const isRunningRef = useRef(false);
 
-	const transformSteps = async (steps: Step[]) => {
+	const transformSteps = async (steps: Step[], opts: AlgorithmOptions) => {
 		for (let step of steps) {
 			if (step.type === 'noop') {
 				await delayed(
 					() => setHighlight([step.from, step.to]),
-					options.delay[step.type]
+					opts.delay[step.type]
 				);
 			} else {
 				await delayed(
@@ -43,18 +42,26 @@ const useAlgorithm = (
 									: v
 							)
 						),
-					options.delay[step.type]
+					opts.delay[step.type]
 				);
 			}
 		}
 	};
 
-	const run = () => {
+	const run = async (
+		values: number[],
+		options: AlgorithmOptions = defaultOpts
+	) => {
+		isRunningRef.current = true;
+		setData(mapData(values));
+
 		const steps = algorithm(values);
-		transformSteps(steps);
+		await transformSteps(steps, options);
+		isRunningRef.current = false;
+		setHighlight([-1, -1]);
 	};
 
-	const randomize = () => {
+	const randomize = (options: AlgorithmOptions = defaultOpts) => {
 		const val = Array.from({ length: values.length }).map(
 			_ =>
 				options.min +
@@ -64,7 +71,13 @@ const useAlgorithm = (
 		setData(mapData(val));
 	};
 
-	return { data, highlight, run, randomize };
+	return {
+		data,
+		highlight,
+		run,
+		randomize,
+		running: isRunningRef.current,
+	};
 };
 
 export default useAlgorithm;
