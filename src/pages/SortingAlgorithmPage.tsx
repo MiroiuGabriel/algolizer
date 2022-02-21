@@ -106,6 +106,7 @@ const SortingAlgorithmPage: React.FC<{
 	const handleOptionsSave = (ev: any) => {
 		ev.preventDefault();
 		setFormError('');
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const [valuesInput, _, delayInput] = ev.target.elements;
 
 		const sanitizedValues = sanitizeValues(valuesInput.value);
