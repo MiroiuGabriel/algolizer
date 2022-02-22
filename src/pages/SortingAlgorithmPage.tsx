@@ -197,7 +197,7 @@ const SortingAlgorithmPage: React.FC<{
 					{...defaultProps}
 					theme={theme}
 					code={code}
-					language="jsx"
+					language="cpp"
 				>
 					{({
 						className,

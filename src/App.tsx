@@ -15,46 +15,45 @@ const Application = styled.div`
 	margin: 0 auto;
 `;
 
-const bubbleSortCode = `function metodaBulelor(vec){
-    for(let i = 0; i < vec.length - 1; i++){
-        for(let j = i + 1; j < vec.length; j++){
+const bubbleSortCode = `void metodaBulelor(int vec[], int n){
+    for(int i = 0; i < n - 1; i++){
+        for(int j = i + 1; j < n; j++){
             //Comparam elementele crescator
+
             if(vec[i] > vec[j]){
                 //Interschimbam elementele
-		let aux = vec[i];
+
+		int aux = vec[i];
 		vec[i] = vec[j];
 		vec[j] = aux;
             }
         }
     };
-
-    return vec;
 }`;
 
-const insertionSortCode = `function metodaInsertiei(vec){
+const insertionSortCode = `void metodaInsertiei(int vec[], int n){
     //Incepem de la al doilea element.
-    for(let i = 1; i < vec.length;i++){
+    for(int i = 1; i < n; i++){
         //Cautam prin elementele din spatele elementului curent.
-        for(let j = i - 1; j > -1; j--){
+        for(int j = i - 1; j > -1; j--){
             //Comparam elementele crescator.
             if(vec[j + 1] < vec[j]){
                 //Interschimbam elementele
-		let aux = vec[j+1];
-		vec[j+1] = vec[j];
+		int aux = vec[j+1];
+		vec[j + 1] = vec[j];
 		vec[j] = aux;
             }
         }
     };
-
-  return vec;
 }`;
 
-const selectionSortCode = `function metodaSelectiei(vec) {
-	let min;
-	for (let i = 0; i < vec.length; i++) {
+const selectionSortCode = `void metodaSelectiei(int vec[], int n) {
+	int min;
+
+	for (int i = 0; i < n; i++) {
 	  min = i;
 	  //Cautam elemente mai mici decat cel curent
-	  for (let j = i + 1; j < vec.length; j++) {
+	  for (int j = i + 1; j < n; j++) {
 		if (vec[j] < vec[min]) {
 		  min = j;
 		}
@@ -62,13 +61,11 @@ const selectionSortCode = `function metodaSelectiei(vec) {
 	  //Comparam indicele
 	  if (min !== i) {
 		//Interschimbam elementele
-		let aux = vec[i];
+		int aux = vec[i];
 		vec[i] = vec[min];
 		vec[min] = aux;
 	  }
 	}
-  
-	return vec;
   }`;
 
 function App() {
