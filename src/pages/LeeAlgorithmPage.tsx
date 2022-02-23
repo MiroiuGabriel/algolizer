@@ -91,7 +91,7 @@ const Canvas: React.FC<{
 };
 
 const LeeAlgorithmPage: React.FC = () => {
-	const [delay, setDelay] = useState(10);
+	const [delay, setDelay] = useState(100);
 	const { matrix, source, running, destination, generateRandMatrix, run } =
 		useLee(delay);
 
