@@ -55,13 +55,82 @@ export const selectionSortCode = `void metodaSelectiei(int vec[], int n) {
 	}
   }`;
 
-export const Pre = styled.pre`
+export const leeAlgorithmCode = `struct Point
+{
+    int x;
+    int y;
+};
+ 
+struct queueNode
+{
+    Point pt;  
+    int dist;  
+};
+ 
+bool isValid(int row, int col)
+{
+    return (row >= 0) && (row < ROW) &&
+           (col >= 0) && (col < COL);
+}
+ 
+int rowNum[] = {-1, 0, 0, 1};
+int colNum[] = {0, -1, 1, 0};
+ 
+int Lee(int mat[][COL], Point src, Point dest)
+{
+    if (!mat[src.x][src.y] || !mat[dest.x][dest.y])
+        return -1;
+ 
+    bool visited[ROW][COL];
+    memset(visited, false, sizeof visited);
+     
+    visited[src.x][src.y] = true;
+ 
+    queue<queueNode> q;
+     
+
+    queueNode s = {src, 0};
+    q.push(s);  
+ 
+    while (!q.empty())
+    {
+        queueNode curr = q.front();
+        Point pt = curr.pt;
+ 
+        if (pt.x == dest.x && pt.y == dest.y)
+            return curr.dist;
+ 
+        q.pop();
+ 
+        for (int i = 0; i < 4; i++)
+        {
+            int row = pt.x + rowNum[i];
+            int col = pt.y + colNum[i];
+             
+            if (isValid(row, col) && mat[row][col] &&
+               !visited[row][col])
+            {
+                visited[row][col] = true;
+                queueNode Adjcell = { {row, col},
+                                      curr.dist + 1 };
+                q.push(Adjcell);
+            }
+        }
+    }
+ 
+    return -1;
+}
+`;
+
+export const Pre = styled.pre<{ width?: string }>`
 	text-align: left;
 	margin: 1em 0;
 	padding: 0.5em;
 	flex-grow: 1;
-	max-width: 600px;
+	max-width: ${props => (props.width ? props.width : '600px')};
 	width: 100%;
+	max-height: 600px;
+	overflow: auto;
 	& .token-line {
 		line-height: 1.3em;
 		height: 1.3em;
@@ -84,11 +153,14 @@ export const LineContent = styled.span`
 	display: table-cell;
 `;
 
-export const HighlightCode: React.FC<{ code: string }> = ({ code }) => {
+export const HighlightCode: React.FC<{ code: string; width?: string }> = ({
+	code,
+	width,
+}) => {
 	return (
 		<Highlight {...defaultProps} theme={theme} code={code} language="cpp">
 			{({ className, style, tokens, getLineProps, getTokenProps }) => (
-				<Pre className={className} style={style}>
+				<Pre className={className} style={style} width={width}>
 					{tokens.map((line, i) => (
 						<Line key={i} {...getLineProps({ line, key: i })}>
 							<LineNo>{i + 1}</LineNo>

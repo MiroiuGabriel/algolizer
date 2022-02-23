@@ -86,6 +86,12 @@ export const Input = styled.input`
 	font-size: 18px;
 	transition: 200ms;
 	flex-grow: 1;
+
+	&:disabled {
+		background-color: #696e79;
+		opacity: 0.8;
+	}
+
 	&:focus {
 		border: 2px solid #67aaed;
 	}
@@ -170,3 +176,19 @@ export const FormError = styled.div`
 	border-radius: 4px;
 	margin: -5px 0 16px 0;
 `;
+
+export const Github = styled.a`
+	text-decoration: none;
+	margin-left: 16px;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: bold;
+	transition: 200ms ease-in-out;
+	&:hover {
+		color: #fdffff !important;
+	}
+`;
+
+export const Icon = styled.img``;

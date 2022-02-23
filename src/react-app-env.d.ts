@@ -31,3 +31,13 @@ type BarchartProps = {
 	timer: number;
 	options?: ChartOptions;
 };
+
+type Point = {
+	x: number;
+	y: number;
+};
+
+type queueNode = {
+	pt: Point;
+	dist: number;
+};

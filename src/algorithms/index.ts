@@ -100,3 +100,117 @@ export const selectionSort = (values: number[]) => {
 
 	return steps;
 };
+
+const rowNeighbours = [-1, 0, 0, 1];
+const colNeighbours = [0, -1, 1, 0];
+
+function isValid(matrix: number[][], row: number, col: number) {
+	return (
+		row >= 0 && row < matrix.length && col >= 0 && col < matrix[0].length
+	);
+}
+
+function isPath(matrix: number[][], x: number, y: number, k: number) {
+	return (
+		x + rowNeighbours[k] >= 0 &&
+		y + colNeighbours[k] >= 0 &&
+		isValid(matrix, x, y) &&
+		matrix[x][y] &&
+		matrix[x][y] === matrix[x + rowNeighbours[k]][y + colNeighbours[k]] + 1
+	);
+}
+
+// type Visited = Array<Array<{ visited: boolean; dist: number }>>;
+
+export function findShortestPath(matrix: number[][], destination: Point) {
+	const path: Array<Point> = [];
+	let x = destination.x,
+		y = destination.y;
+
+	path.push({ x, y });
+
+	do {
+		let pos = -1;
+		for (let k = 0; k < 4 && pos === -1; k++) {
+			if (isPath(matrix, x, y, k)) {
+				pos = k;
+			}
+		}
+		x += rowNeighbours[pos];
+		y += colNeighbours[pos];
+		path.push({ x, y });
+	} while (matrix[x][y] !== 2);
+	return path;
+}
+
+export const leeAlgorithm = (
+	matrix: number[][],
+	source: Point,
+	destination: Point
+) => {
+	const steps: Point[] = [];
+
+	if (!matrix[source.x][source.y] || !matrix[destination.x][destination.y])
+		return { dist: -1, steps };
+
+	const visited = matrix;
+	console.log('bf', visited);
+
+	const queue: queueNode[] = [];
+
+	queue.push({ pt: source, dist: 1 });
+
+	while (queue.length !== 0) {
+		const curr = queue[0];
+		const pt = curr.pt;
+
+		if (pt.x === destination.x && pt.y === destination.y) {
+			return { dist: curr.dist, steps, visited };
+		}
+		queue.shift();
+
+		for (let i = 0; i < 4; i++) {
+			let row = pt.x + rowNeighbours[i];
+			let col = pt.y + colNeighbours[i];
+
+			if (
+				isValid(matrix, row, col) &&
+				matrix[row][col] &&
+				visited[row][col] === 1
+			) {
+				visited[row][col] = curr.dist + 1;
+				if (row === destination.x && col === destination.y) {
+					return { dist: curr.dist, steps, visited };
+				}
+				steps.push({ x: row, y: col });
+				queue.push({ pt: { x: row, y: col }, dist: curr.dist + 1 });
+			}
+		}
+	}
+	// Return -1 if destination cannot be reached
+	return { dist: -1, steps, visited };
+};
+
+export function generateRandomMatrix(
+	rows: number,
+	cols: number,
+	source: Point,
+	destination: Point
+) {
+	var matrix: number[][] = [];
+	var percentChance = 0.7; // Chance to generate a 0 (wall)
+
+	for (var i = 0; i < rows; i++) {
+		matrix.push([]);
+		for (var j = 0; j < cols; j++) {
+			if (Math.random() < percentChance) {
+				matrix[i].push(1);
+			} else {
+				matrix[i].push(0);
+			}
+		}
+	}
+	matrix[source.x][source.y] = 1;
+	matrix[destination.x][destination.y] = 1;
+	return matrix;
+}

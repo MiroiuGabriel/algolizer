@@ -128,6 +128,7 @@ const SortingAlgorithmPage: React.FC<{
 						<Row>
 							<Input
 								required
+								disabled={running}
 								value={values.join(' ')}
 								onChange={({ target }) =>
 									setValues(sanitizeValues(target.value))
@@ -154,6 +155,7 @@ const SortingAlgorithmPage: React.FC<{
 							type="number"
 							min={10}
 							max={2000}
+							disabled={running}
 							defaultValue={options.delay.noop}
 						/>
 						<Small>Timpul se masoara in milisecunde.</Small>

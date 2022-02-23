@@ -1,4 +1,12 @@
-import { Algolizer, Container, Link, NavbarWrapper, Row } from './styles';
+import {
+	Algolizer,
+	Container,
+	Github,
+	Icon,
+	Link,
+	NavbarWrapper,
+	Row,
+} from './styles';
 
 const isActive = ({ isActive }: { isActive: boolean }) => {
 	return {
@@ -27,6 +35,9 @@ const Navbar: React.FC = () => {
 					<Link to="/algoritmul-lui-lee" style={isActive}>
 						Algoritmul lui Lee
 					</Link>
+					<Github href="https://github.com/MiroiuGabriel/algolizer">
+						<Icon src="/github.svg" />
+					</Github>
 				</Row>
 			</Container>
 		</NavbarWrapper>
