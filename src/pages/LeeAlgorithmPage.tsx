@@ -44,10 +44,10 @@ const Block = styled.div<{
 	height: 24px;
 	margin-bottom: 7px;
 	background-color: ${props =>
-		props.path
+		props.source
 			? '#6FD666'
-			: props.source
-			? '#180058'
+			: props.path
+			? '#6FD666'
 			: props.destination
 			? '#E33D49'
 			: props.visited
