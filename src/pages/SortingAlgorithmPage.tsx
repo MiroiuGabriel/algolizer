@@ -162,7 +162,7 @@ const SortingAlgorithmPage: React.FC<{
 					</FormField>
 					{formError.length > 0 && <FormError>{formError}</FormError>}
 					<Button type="submit" variant="primary" disabled={running}>
-						Sorteaza
+						Start
 					</Button>
 				</Controls>
 				<HighlightCode code={code} />
