@@ -1,7 +1,7 @@
 /// <reference types="react-scripts" />
 
 type StepType = 'swap' | 'noop';
-type Step = { from: number; to: number; type: StepType };
+type Step = { from: number; to: number; type: StepType; color: string };
 
 type SortAlgorithm = (values: number[]) => Step[];
 
@@ -27,7 +27,7 @@ type ChartOptions = {
 
 type BarchartProps = {
 	data: Array<{ value: number; index: number }>;
-	highlight: number[];
+	highlight: { position: number[]; color: string };
 	timer: number;
 	options?: ChartOptions;
 };

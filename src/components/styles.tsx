@@ -35,6 +35,7 @@ export const Bar = styled.div<
 		index: number;
 		highlight: boolean;
 		timer: number;
+		highlightColor: string;
 	} & ChartOptions
 >`
 	position: absolute;
@@ -47,7 +48,8 @@ export const Bar = styled.div<
 	);
 	height: ${props => (props.maxHeight * props.value) / props.max}px;
 	background-color: ${props =>
-		props.highlight ? 'rgb(75, 199, 64)' : 'rgb(55, 138, 221)'};
+		props.highlight ? props.highlightColor : '#378add'};
+
 	transition: transform ${props => props.timer}ms, background 200ms;
 	z-index: ${props => (props.highlight ? 1 : 0)};
 

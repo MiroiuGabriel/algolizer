@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 
-const delayed = async (cb: Function, delay: number) => {
+export const delayed = async (cb: Function, delay: number) => {
 	await new Promise(resolve => {
 		cb();
 		setTimeout(() => {
@@ -20,19 +20,31 @@ const defaultOpts = {
 
 const useAlgorithm = (values: number[], algorithm: SortAlgorithm) => {
 	const [data, setData] = useState(() => mapData(values));
-	const [highlight, setHighlight] = useState<number[]>([]);
+	const [highlight, setHighlight] = useState<{
+		position: number[];
+		color: string;
+	}>({ position: [-1, -1], color: '#fff' });
 	const isRunningRef = useRef(false);
 
 	const transformSteps = async (steps: Step[], opts: AlgorithmOptions) => {
 		for (let step of steps) {
 			if (step.type === 'noop') {
 				await delayed(
-					() => setHighlight([step.from, step.to]),
+					() =>
+						setHighlight({
+							position: [step.from, step.to],
+							color: step.color,
+						}),
 					opts.delay[step.type]
 				);
 			} else {
 				await delayed(
-					() =>
+					() => {
+						setHighlight({
+							position: [step.from, step.to],
+							color: step.color,
+						});
+
 						setData(prev =>
 							prev.map(v =>
 								v.index === step.from
@@ -41,7 +53,9 @@ const useAlgorithm = (values: number[], algorithm: SortAlgorithm) => {
 									? { ...v, index: step.from }
 									: v
 							)
-						),
+						);
+					},
+
 					opts.delay[step.type]
 				);
 			}
@@ -58,7 +72,7 @@ const useAlgorithm = (values: number[], algorithm: SortAlgorithm) => {
 		const steps = algorithm(values);
 		await transformSteps(steps, options);
 		isRunningRef.current = false;
-		setHighlight([-1, -1]);
+		setHighlight({ position: [-1, -1], color: '#fff' });
 	};
 
 	const randomize = (options: AlgorithmOptions = defaultOpts) => {
