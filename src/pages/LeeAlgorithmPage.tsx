@@ -139,7 +139,7 @@ const LeeAlgorithmPage: React.FC = () => {
 						<Small>Timpul se masoara in milisecunde.</Small>
 					</FormField>
 					<Button type="submit" variant="primary" disabled={running}>
-						Ruleaza
+						Start
 					</Button>
 				</Controls>
 			</Flex>
