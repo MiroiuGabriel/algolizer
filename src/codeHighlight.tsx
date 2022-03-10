@@ -3,19 +3,23 @@ import Highlight, { defaultProps } from 'prism-react-renderer';
 import theme from 'prism-react-renderer/themes/nightOwl';
 
 export const bubbleSortCode = `void metodaBulelor(int vec[], int n){
-    for(int i = 0; i < n - 1; i++){
-        for(int j = i + 1; j < n; j++){
-            //Comparam elementele crescator
-
-            if(vec[i] > vec[j]){
-                //Interschimbam elementele
-
-		int aux = vec[i];
-		vec[i] = vec[j];
-		vec[j] = aux;
-            }
-        }
-    };
+	bool sortat;
+	int m = n;
+	do
+	{
+	  sortat = true;
+	  int p = m;
+	  for(int i = 0 ; i < p - 1 ; i ++)
+		if(vec[i] > vec[i+1])
+		{
+		  int aux = vec[i];
+		  vec[i] = vec[i+1];
+		  vec[i+1] = aux;
+		  sortat = false;
+		  m = i + 1;
+		}
+	}
+	while(!sortat);
 }`;
 
 export const insertionSortCode = `void metodaInsertiei(int vec[], int n){

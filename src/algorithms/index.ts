@@ -35,18 +35,23 @@ const noop = (
 
 export const bubbleSort: SortAlgorithm = (values: number[]) => {
 	let steps: Step[] = [];
-
-	for (let i = 0; i < values.length - 1; i++) {
-		for (let j = i + 1; j < values.length; j++) {
-			steps.push(noop(i, j));
-
-			if (values[i] > values[j]) {
-				steps.push(swap(values, i, j, redHighlight));
+	let sortat: boolean;
+	let m = values.length;
+	do {
+		sortat = true;
+		let p = m;
+		for (let i = 0; i < p - 1; i++) {
+			steps.push(noop(i, i));
+			if (values[i] > values[i + 1]) {
+				steps.push(swap(values, i, i + 1, redHighlight));
+				sortat = false;
+				m = i + 1;
 			}
 		}
-	}
+	} while (!sortat);
 
 	// remove highlight
+	console.log(values);
 	steps.push(noop(-1, -1));
 	console.log(steps);
 	return steps;
