@@ -165,6 +165,7 @@ const SortingAlgorithmPage: React.FC<{
 						Sorteaza
 					</Button>
 				</Controls>
+
 				<HighlightCode code={code} />
 			</Container>
 		</Wrapper>

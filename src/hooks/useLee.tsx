@@ -61,10 +61,10 @@ const useLee = (delay: number) => {
 					delay
 				);
 			}
-			alert('Cea mai mica poteca are lungimea ' + dist);
+			alert('Cel mai mic drum are lungimea ' + dist);
 		} else
 			alert(
-				'Nu exista o poteca pentru aceste coordonate. Te rugam sa generezi alta matrice'
+				'Nu exista un drum pentru aceste coordonate. Te rugam sa generezi alta matrice'
 			);
 		setRunning(false);
 	};

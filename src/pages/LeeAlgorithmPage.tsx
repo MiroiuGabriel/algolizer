@@ -28,8 +28,27 @@ const RandomBtn = styled.button`
 	}
 `;
 
+const FlexGap = styled.div`
+	display: flex;
+	align-items: center;
+`;
+const ColorBlock = styled.div<{ color: string }>`
+	width: 36px;
+	height: 36px;
+	background-color: ${props => props.color};
+	border-radius: 4px;
+	margin-right: 16px;
+`;
+
 const Controls = styled(Form)`
 	margin: 0 48px;
+`;
+
+const Col = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	margin-top: 32px;
 `;
 
 const Block = styled.div<{
@@ -141,6 +160,24 @@ const LeeAlgorithmPage: React.FC = () => {
 					<Button type="submit" variant="primary" disabled={running}>
 						Start
 					</Button>
+					<Col>
+						<FlexGap>
+							<ColorBlock color="#6FD666" />
+							Start
+						</FlexGap>
+						<FlexGap>
+							<ColorBlock color="#E33D49" />
+							Destinatie
+						</FlexGap>
+						<FlexGap>
+							<ColorBlock color="#696e79" />
+							Obstacol
+						</FlexGap>
+						<FlexGap>
+							<ColorBlock color="#378add" />
+							Liber
+						</FlexGap>
+					</Col>
 				</Controls>
 			</Flex>
 			<HighlightCode code={leeAlgorithmCode} width="910px" />
