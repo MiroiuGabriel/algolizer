@@ -109,6 +109,11 @@ const Canvas: React.FC<{
 	);
 };
 
+const Page = styled.div`
+	box-sizing: border-box;
+	padding: 0 16px;
+`;
+
 const LeeAlgorithmPage: React.FC = () => {
 	const [delay, setDelay] = useState(100);
 	const { matrix, source, running, destination, generateRandMatrix, run } =
@@ -119,7 +124,7 @@ const LeeAlgorithmPage: React.FC = () => {
 		run();
 	};
 	return (
-		<div>
+		<Page>
 			<Flex>
 				<Canvas
 					matrix={matrix}
@@ -181,7 +186,7 @@ const LeeAlgorithmPage: React.FC = () => {
 				</Controls>
 			</Flex>
 			<HighlightCode code={leeAlgorithmCode} width="910px" />
-		</div>
+		</Page>
 	);
 };
 

@@ -20,6 +20,8 @@ const Controls = styled(Form)``;
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
+	box-sizing: border-box;
+	padding: 0 16px;
 `;
 
 const BarchartWrapper = styled.div`

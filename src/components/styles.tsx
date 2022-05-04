@@ -133,6 +133,8 @@ export const NavbarWrapper = styled.div`
 	top: 0;
 	background-color: #020610;
 	z-index: 99999;
+	box-sizing: border-box;
+	padding: 0 16px;
 `;
 
 export const Container = styled.div`
